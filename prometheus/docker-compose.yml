@@ -1,0 +1,24 @@
+services:
+  prometheus:
+    image: prom/prometheus
+    container_name: prometheus
+    restart: unless-stopped
+    user: root
+    networks:
+      - proxy
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+      - /home/docker/compose/prometheus/prometheus.yml:/etc/prometheus/prometheus.yml
+      - prometheus:/prometheus
+    labels:
+      autoupdate: true
+      traefik.enable: true
+      traefik.http.routers.prometheus.entrypoints: https
+      traefik.http.routers.prometheus.rule: Host("prometheus.${DOMAIN}")
+      traefik.http.routers.prometheus.service: prometheus
+      traefik.http.services.prometheus.loadbalancer.server.port: 9090
+networks:
+  proxy:
+    external: true
+volumes:
+  prometheus:

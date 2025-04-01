@@ -1,0 +1,16 @@
+services:
+  adguardhome-metrics:
+    image: ghcr.io/henrywhitaker3/adguard-exporter:latest
+    container_name: adguardhome-metrics
+    restart: unless-stopped
+    networks:
+      - proxy
+    environment:
+      - ADGUARD_SERVERS=${ADGUARD_SERVERS}
+      - ADGUARD_USERNAMES=${ADGUARD_USERNAMES}
+      - ADGUARD_PASSWORDS=${ADGUARD_PASSWORDS}
+    labels:
+      autoupdate: true
+networks:
+  proxy:
+    external: true

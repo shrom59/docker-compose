@@ -1,0 +1,47 @@
+secrets:
+  ovh_endpoint:
+    file: "/home/docker/compose/secrets/traefik/ovh_endpoint.secret"
+  ovh_application_key:
+    file: "/home/docker/compose/secrets/traefik/ovh_application_key.secret"
+  ovh_application_secret:
+    file: "/home/docker/compose/secrets/traefik/ovh_application_secret.secret"
+  ovh_consumer_key:
+    file: "/home/docker/compose/secrets/traefik/ovh_consumer_key.secret"
+
+services:
+  traefik:
+    image: traefik:latest
+    container_name: traefik
+    restart: always
+    secrets:
+      - "ovh_endpoint"
+      - "ovh_application_key"
+      - "ovh_application_secret"
+      - "ovh_consumer_key"
+    environment:
+      - "OVH_ENDPOINT_FILE=/run/secrets/ovh_endpoint"
+      - "OVH_APPLICATION_KEY_FILE=/run/secrets/ovh_application_key"
+      - "OVH_APPLICATION_SECRET_FILE=/run/secrets/ovh_application_secret"
+      - "OVH_CONSUMER_KEY_FILE=/run/secrets/ovh_consumer_key"
+    networks:
+      - proxy
+    ports:
+      - 80:80
+      - 443:443
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+      - /home/docker/compose/traefik/traefik.yml:/traefik.yml:ro
+      - /home/docker/compose/traefik/config.yml:/config.yml:ro  
+      - /home/docker/compose/traefik/acme.json:/acme.json
+      - /home/docker/compose/traefik/custom:/custom:ro
+    labels:
+      com.centurylinklabs.watchtower.monitor-only: true
+      autoupdate: monitor
+      traefik.enable: true
+      traefik.http.routers.api.entrypoints: https
+      traefik.http.routers.api.rule: Host("traefik.${DOMAIN}")
+      traefik.http.routers.api.service: api@internal
+networks:
+  proxy:
+    external: true

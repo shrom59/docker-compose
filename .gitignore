@@ -1,0 +1,5 @@
+.env
+secrets/
+traefik/acme.json
+traefik/traefik.yml
+traefik/custom/

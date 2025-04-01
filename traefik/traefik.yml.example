@@ -1,0 +1,52 @@
+api:
+  dashboard: true
+log:
+  level: INFO
+entryPoints:
+  http:
+    address: ":80"
+    http:
+      redirections:
+        entryPoint:
+          to: https
+          scheme: https
+  https:
+    address: ":443"
+    http:
+      tls:
+        certResolver: ssl
+        domains:
+          - main: "example.com"
+            sans:
+              - "*.example.com"
+      middlewares:
+        - secured@file
+  metrics:
+    address: ":8099"
+providers:
+  docker:
+    endpoint: "unix:///var/run/docker.sock"
+    exposedByDefault: false
+  file:
+    directory: custom/
+    watch: true
+certificatesResolvers:
+  ssl:
+    acme:
+      email: mail@example.com
+      storage: acme.json
+      dnsChallenge:
+        provider: ovh
+serversTransport:
+  insecureSkipVerify: true
+metrics:
+  prometheus:
+    entryPoint: metrics
+    buckets:
+      - 0.1
+      - 0.3
+      - 1.2
+      - 5.0
+    addEntryPointsLabels: true
+    addRoutersLabels: true
+    addServicesLabels: true
