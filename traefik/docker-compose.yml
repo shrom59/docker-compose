@@ -32,7 +32,6 @@ services:
       - /etc/localtime:/etc/localtime:ro
       - /var/run/docker.sock:/var/run/docker.sock:ro
       - /home/docker/compose/traefik/traefik.yml:/traefik.yml:ro
-      - /home/docker/compose/traefik/config.yml:/config.yml:ro  
       - /home/docker/compose/traefik/acme.json:/acme.json
       - /home/docker/compose/traefik/custom:/custom:ro
     labels:
