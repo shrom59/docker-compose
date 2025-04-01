@@ -1,3 +1,23 @@
-# Informations #
-This repo contains my docker-compose files.
-use the .env.example files in each folders to create your own .env files
+# Docker Compose Infrastructure
+
+## Overview and Configuration
+
+This repository contains Docker Compose configuration of my homelab.
+The infrastructure uses Traefik as a reverse proxy for handling routing and SSL certificates.
+
+### Setup Instructions
+
+1. Clone this repository
+2. Create a `.env` file based on the `.env.example` template
+3. Update the `DOMAIN` variable in your `.env` file with your domain
+4. Deploy services with `docker-compose up -d`
+
+### Environment Configuration
+
+This project uses environment variables to protect sensitive information:
+DOMAIN=example.com
+
+### Notes
+
+- SSL certificates are managed automatically by Traefik with OVH as a DNS provider with DNS challenge.
+- Configuration files in the `traefik` directory are excluded from version control
