@@ -1,0 +1,3 @@
+### Informations ###
+This repo contains my docker-compose files.
+use the .env.example files in each folders to create your own .env files
