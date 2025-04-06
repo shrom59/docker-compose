@@ -12,8 +12,6 @@ services:
       - work:/opt/adguardhome/work
       - conf:/opt/adguardhome/conf
     labels:
-      com.centurylinklabs.watchtower.monitor-only: true
-      autoupdate: monitor
       traefik.enable: true
       traefik.http.routers.adguard.entrypoints: https
       traefik.http.routers.adguard.rule: Host("adguard.${DOMAIN}")
