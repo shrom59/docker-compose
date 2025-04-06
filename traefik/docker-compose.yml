@@ -35,8 +35,6 @@ services:
       - /home/docker/compose/traefik/acme.json:/acme.json
       - /home/docker/compose/traefik/custom:/custom:ro
     labels:
-      com.centurylinklabs.watchtower.monitor-only: true
-      autoupdate: monitor
       traefik.enable: true
       traefik.http.routers.api.entrypoints: https
       traefik.http.routers.api.rule: Host("traefik.${DOMAIN}")
