@@ -1,0 +1,25 @@
+services:
+  duplicati:
+    image: duplicati/duplicati:latest
+    container_name: duplicati
+    restart: unless-stopped
+    networks:
+      - proxy
+    environment:
+      - SETTINGS_ENCRYPTION_KEY=${SETTINGS_ENCRYPTION_KEY}
+      - DUPLICATI_SERVER_PARAMETERS=--webservice-password= 
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+      - data:/data
+      - /home/docker:/source
+    labels:
+      traefik.enable: true
+      traefik.http.routers.duplicati.entrypoints: https
+      traefik.http.routers.duplicati.rule: Host("duplicati.${DOMAIN}")
+      traefik.http.routers.duplicati.service: duplicati
+      traefik.http.services.duplicati.loadbalancer.server.port: 8200
+networks:
+  proxy:
+    external: true
+volumes:
+  data:

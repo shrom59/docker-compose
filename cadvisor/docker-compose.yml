@@ -12,7 +12,6 @@ services:
       - /sys:/sys:ro
       - /var/lib/docker/:/var/lib/docker:ro
     labels:
-      autoupdate: true
       traefik.enable: true
       traefik.http.routers.cadvisor.entrypoints: https
       traefik.http.routers.cadvisor.rule: Host("cadvisor.${DOMAIN}")

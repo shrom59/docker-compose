@@ -11,7 +11,6 @@ services:
       - /home/docker/compose/prometheus/prometheus.yml:/etc/prometheus/prometheus.yml
       - prometheus:/prometheus
     labels:
-      autoupdate: true
       traefik.enable: true
       traefik.http.routers.prometheus.entrypoints: https
       traefik.http.routers.prometheus.rule: Host("prometheus.${DOMAIN}")
