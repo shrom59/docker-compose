@@ -1,0 +1,16 @@
+services:
+  duplicati-prometheus-exporter:
+    image: aleixolucas/duplicati-prometheus-exporter
+    container_name: duplicati-exporter
+    restart: unless-stopped
+    ports:
+      - "5000:5000"
+    networks:
+      - proxy
+    environment:
+      - LOG_LEVEL=DEBUG
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+networks:
+  proxy:
+    external: true
