@@ -11,7 +11,7 @@ services:
     volumes:
       - /etc/localtime:/etc/localtime:ro
       - data:/data
-      - /home/docker:/source
+      - /home/docker:/source:ro
     labels:
       traefik.enable: true
       traefik.http.routers.duplicati.entrypoints: https
