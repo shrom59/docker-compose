@@ -32,8 +32,3 @@ scrape_configs:
    static_configs:
     - targets:
        - cadvisor:8080
- - job_name: duplicati
-   honor_labels: true
-   static_configs:
-    - targets: 
-       - duplicati-exporter:5000
