@@ -1,0 +1,24 @@
+services:
+  restic-exporter:
+    image: ngosang/restic-exporter
+    container_name: restic-exporter
+    restart: unless-stopped
+    networks:
+      - proxy
+    environment:
+      - RESTIC_REPOSITORY=rclone:backup:Backups
+      - RESTIC_PASSWORD=RaUmdPbackrest59270@
+      - REFRESH_INTERVAL=1800 # 30 min
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+      - backrest_data:/data:ro
+      - /usr/bin/rclone:/usr/bin/rclone:ro
+      - rclone_config:/root/.config/rclone:ro
+networks:
+  proxy:
+    external: true
+volumes:
+  rclone_config:
+    external: true
+  backrest_data:
+    external: true
