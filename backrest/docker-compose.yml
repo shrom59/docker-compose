@@ -1,0 +1,34 @@
+services:
+  backrest:
+    image: garethgeorge/backrest:latest
+    container_name: backrest
+    restart: unless-stopped
+    hostname: backrest
+    networks:
+      - proxy
+    environment:
+      - BACKREST_DATA=/data # path for backrest data. restic binary and the database are placed here.
+      - BACKREST_CONFIG=/config/config.json # path for the backrest config file.
+      - XDG_CACHE_HOME=/cache # path for the restic cache which greatly improves performance.
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+      - data:/data
+      - config:/config
+      - cache:/cache
+      - rclone_config:/root/.config/rclone:ro
+      - /home/docker:/data/docker:ro
+    labels:
+      traefik.enable: true
+      traefik.http.routers.backrest.entrypoints: https
+      traefik.http.routers.backrest.rule: Host("backrest.${DOMAIN}")
+      traefik.http.routers.backrest.service: backrest
+      traefik.http.services.backrest.loadbalancer.server.port: 9898
+networks:
+  proxy:
+    external: true
+volumes:
+  data:
+  config:
+  cache:
+  rclone_config:
+    external: true
