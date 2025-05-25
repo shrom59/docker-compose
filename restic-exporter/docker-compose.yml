@@ -7,7 +7,7 @@ services:
       - proxy
     environment:
       - RESTIC_REPOSITORY=rclone:backup:Backups
-      - RESTIC_PASSWORD=RaUmdPbackrest59270@
+      - RESTIC_PASSWORD_FILE=/root/.config/rclone/restic_pw
       - REFRESH_INTERVAL=1800 # 30 min
     volumes:
       - /etc/localtime:/etc/localtime:ro
