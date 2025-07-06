@@ -9,6 +9,7 @@ services:
     volumes:
       - /etc/localtime:/etc/localtime:ro
       - /home/docker/compose/prometheus/prometheus.yml:/etc/prometheus/prometheus.yml
+      - /home/docker/compose/prometheus/rules/memory.yaml:/etc/prometheus/rules/memory.yml
       - prometheus:/prometheus
     labels:
       traefik.enable: true

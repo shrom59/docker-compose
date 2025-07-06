@@ -1,0 +1,12 @@
+groups:
+- name: memory_calculations
+  interval: 30s
+  rules:
+  - record: container_memory_working_set_bytes
+    expr: container_memory_usage_bytes - container_memory_cache
+    labels:
+      job: "cadvisor"
+  - record: container_memory_usage_bytes_percent
+    expr: (container_memory_working_set_bytes / on() group_left() node_memory_MemTotal_bytes) * 100
+    labels:
+      job: "cadvisor"
