@@ -39,6 +39,10 @@ services:
       traefik.http.routers.api.entrypoints: https
       traefik.http.routers.api.rule: Host("traefik.${DOMAIN}")
       traefik.http.routers.api.service: api@internal
+      traefik.http.routers.traefik.entrypoints: https
+      traefik.http.routers.traefik.rule: Host("traefik.${DOMAIN}") && PathPrefix(`/metrics`)
+      traefik.http.routers.traefik.service: traefik
+      traefik.http.services.traefik.loadbalancer.server.port: 8099
 networks:
   proxy:
     external: true

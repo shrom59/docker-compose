@@ -1,4 +1,16 @@
 services:
+  config-generator:
+    image: alpine:latest
+    volumes:
+      - ./.env:/app/.env:ro
+      - ./prometheus.yml.template:/app/prometheus.yml.template:ro
+      - ./:/app/output
+    command: |
+      sh -c "
+        apk add --no-cache gettext &&
+        export DOMAIN=$$(grep DOMAIN /app/.env | cut -d '=' -f2) &&
+        envsubst < /app/prometheus.yml.template > /app/output/prometheus.yml
+      "
   prometheus:
     image: prom/prometheus
     container_name: prometheus
@@ -8,8 +20,9 @@ services:
       - proxy
     volumes:
       - /etc/localtime:/etc/localtime:ro
-      - /home/docker/compose/prometheus/prometheus.yml:/etc/prometheus/prometheus.yml
-      - /home/docker/compose/prometheus/rules/memory.yaml:/etc/prometheus/rules/memory.yml
+      - ./prometheus.yml:/etc/prometheus/prometheus.yml
+      - ./rules/memory.yaml:/etc/prometheus/rules/memory.yml
+      - ../secrets/watchtower/api_token:/etc/prometheus/secrets/api_token
       - prometheus:/prometheus
     labels:
       traefik.enable: true
@@ -17,6 +30,9 @@ services:
       traefik.http.routers.prometheus.rule: Host("prometheus.${DOMAIN}")
       traefik.http.routers.prometheus.service: prometheus
       traefik.http.services.prometheus.loadbalancer.server.port: 9090
+    depends_on:
+      config-generator:
+        condition: service_completed_successfully
 networks:
   proxy:
     external: true
