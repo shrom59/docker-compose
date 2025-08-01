@@ -16,7 +16,7 @@ services:
       - config:/config
       - cache:/cache
       - rclone_config:/root/.config/rclone:ro
-      - /home/docker:/data/docker:ro
+      - /home/docker:/data/docker
     labels:
       traefik.enable: true
       traefik.http.routers.backrest.entrypoints: https
