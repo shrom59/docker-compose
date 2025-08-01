@@ -21,6 +21,10 @@ services:
       traefik.http.routers.cadvisor.rule: Host("cadvisor.${DOMAIN}")
       traefik.http.routers.cadvisor.service: cadvisor
       traefik.http.services.cadvisor.loadbalancer.server.port: 8080
+      traefik.http.routers.cadvisor-metrics.entrypoints: https
+      traefik.http.routers.cadvisor-metrics.rule: Host("cadvisor.${DOMAIN}") && PathPrefix(`/metrics`)
+      traefik.http.routers.cadvisor-metrics.service: cadvisor-metrics
+      traefik.http.services.cadvisor-metrics.loadbalancer.server.port: 8080
 networks:
   proxy:
     external: true

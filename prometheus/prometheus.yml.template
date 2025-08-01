@@ -9,40 +9,51 @@ scrape_configs:
    scrape_interval: 60s
    static_configs:
     - targets:
-       - prometheus:9090
+       - prometheus.${DOMAIN}
+   metrics_path: /metrics
+   scheme: https
 
  - job_name: node
    scrape_interval: 60s
    static_configs:
     - targets: 
-       - node-exporter:9100
+       - node-exporter.${DOMAIN}
+   metrics_path: /metrics
+   scheme: https
 
  - job_name: traefik
    scrape_interval: 30s
    static_configs:
     - targets:
-       - traefik:8099
+       - traefik.${DOMAIN}
+   metrics_path: /metrics
+   scheme: https
 
  - job_name: adguard
    scrape_interval: 60s
    static_configs:
     - targets: 
-       - adguardhome-metrics:9618
+       - adguard.${DOMAIN}
+   metrics_path: /metrics
+   scheme: https 
 
  - job_name: watchtower
    scrape_interval: 300s
    static_configs:
     - targets:
-       - watchtower:8080
+       - watchtower.${DOMAIN}
    metrics_path: /v1/metrics
-   bearer_token: prom
+   scheme: https
+   bearer_token: /etc/prometheus/secrets/api_token
 
  - job_name: cadvisor
    scrape_interval: 30s
    scrape_timeout: 10s
    static_configs:
     - targets:
-       - cadvisor:8080
+       - cadvisor.${DOMAIN}
+   metrics_path: /metrics
+   scheme: https
    metric_relabel_configs:
     - source_labels: [__name__]
       regex: 'container_(memory_usage_bytes|memory_cache|memory_rss|cpu_usage_seconds_total|network_.*_bytes_total|fs_.*_bytes)'
@@ -56,5 +67,6 @@ scrape_configs:
    scrape_interval: 300s
    static_configs:
     - targets:
-       - restic-exporter:8001
-        
+       - restic-exporter.${DOMAIN}
+   metrics_path: /metrics
+   scheme: https
