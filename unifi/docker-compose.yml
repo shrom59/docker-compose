@@ -7,7 +7,7 @@ services:
       - proxy
     environment:
       - MONGO_INITDB_ROOT_USERNAME=${MONGO_INITDB_ROOT_USERNAME}
-      - MONGO_INITDB_ROOT_PASSWORD=${MONGO_INITDB_ROOT_USERNAME}
+      - MONGO_INITDB_ROOT_PASSWORD=${MONGO_INITDB_ROOT_PASSWORD}
       - MONGO_USER=${MONGO_USER}
       - MONGO_PASS=${MONGO_PASS}
       - MONGO_DBNAME=${MONGO_DBNAME}
@@ -27,7 +27,7 @@ services:
       - PGID=1000
       - TZ=Etc/UTC
       - MONGO_INITDB_ROOT_USERNAME=${MONGO_INITDB_ROOT_USERNAME}
-      - MONGO_INITDB_ROOT_PASSWORD=${MONGO_INITDB_ROOT_USERNAME}
+      - MONGO_INITDB_ROOT_PASSWORD=${MONGO_INITDB_ROOT_PASSWORD}
       - MONGO_USER=${MONGO_USER}
       - MONGO_PASS=${MONGO_PASS}
       - MONGO_DBNAME=${MONGO_DBNAME}
@@ -43,11 +43,11 @@ services:
       - 8080:8080
     labels:
       traefik.enable: true
-      traefik.http.routers.unify.entrypoints: https
-      traefik.http.routers.unify.rule: Host("unify.${DOMAIN}")
-      traefik.http.routers.unify.service: unify
-      traefik.http.services.unify.loadbalancer.server.scheme: https
-      traefik.http.services.unify.loadbalancer.server.port: 8443
+      traefik.http.routers.unifi.entrypoints: https
+      traefik.http.routers.unifi.rule: Host("unifi.${DOMAIN}")
+      traefik.http.routers.unifi.service: unifi
+      traefik.http.services.unifi.loadbalancer.server.scheme: https
+      traefik.http.services.unifi.loadbalancer.server.port: 8443
 networks:
   proxy:
     external: true

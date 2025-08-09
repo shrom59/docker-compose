@@ -70,3 +70,11 @@ scrape_configs:
        - restic-exporter.${DOMAIN}
    metrics_path: /metrics
    scheme: https
+
+ - job_name: unifi-exporter
+   scrape_interval: 60s
+   static_configs:
+    - targets:
+       - unifi-exporter.${DOMAIN}
+   metrics_path: /metrics
+   scheme: https 
