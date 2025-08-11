@@ -1,0 +1,23 @@
+services:
+  freebox-exporter:
+    image: saphoooo/freebox-exporter:latest
+    container_name: freebox-exporter
+    restart: unless-stopped
+    networks:
+      - proxy
+    volumes:
+      - freebox-token:/token
+    command: 
+      - '-fiber'
+    labels:
+      traefik.enable: true
+      traefik.http.routers.freebox-exporter.entrypoints: https
+      traefik.http.routers.freebox-exporter.rule: Host(`freebox-exporter.${DOMAIN}`) && PathPrefix(`/metrics`)
+      traefik.http.services.freebox-exporter.loadbalancer.server.port: 10001
+
+networks:
+  proxy:
+    external: true
+
+volumes:
+  freebox-token:
