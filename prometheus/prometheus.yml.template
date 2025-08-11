@@ -77,4 +77,12 @@ scrape_configs:
     - targets:
        - unifi-exporter.${DOMAIN}
    metrics_path: /metrics
-   scheme: https 
+   scheme: https
+ 
+ - job_name: freebox
+   scrape_interval: 30s
+   static_configs:
+    - targets: 
+       - freebox-exporter.${DOMAIN}
+   metrics_path: /metrics
+   scheme: https
