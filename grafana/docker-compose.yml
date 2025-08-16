@@ -1,0 +1,26 @@
+services:
+  grafana:
+    image: grafana/grafana:latest
+    container_name: grafana
+    restart: unless-stopped
+    networks:
+      - proxy
+    volumes:
+      - grafana_data:/var/lib/grafana
+    environment:
+      - GF_SECURITY_ADMIN_USER=${GRAFANA_ADMIN_USER}
+      - GF_SECURITY_ADMIN_PASSWORD=${GRAFANA_ADMIN_PASSWORD}
+      - GF_USERS_ALLOW_SIGN_UP=false
+      - GF_SERVER_ROOT_URL=https://grafana.${DOMAIN}
+      - GF_SERVER_SERVE_FROM_SUB_PATH=false
+    labels:
+      traefik.enable: true
+      traefik.http.routers.grafana.entrypoints: https
+      traefik.http.routers.grafana.rule: Host("grafana.${DOMAIN}")
+      traefik.http.routers.grafana.service: grafana
+      traefik.http.services.grafana.loadbalancer.server.port: 3000
+networks:
+  proxy:
+    external: true
+volumes:
+  grafana_data:
