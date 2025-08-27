@@ -1,23 +1,28 @@
 services:
   freebox-exporter:
-    image: saphoooo/freebox-exporter:latest
+    image: docker.io/shackerd/freebox-exporter-rs:latest
     container_name: freebox-exporter
     restart: unless-stopped
     networks:
       - proxy
     volumes:
-      - freebox-token:/token
+      - freebox_config:/etc/freebox-exporter-rs
+      - freebox_data:/data
     command: 
-      - '-fiber'
+      - '/root/freebox-exporter-rs'
+      - '-c'
+      - '/etc/freebox-exporter-rs/config.toml'
+      - 'auto'
     labels:
       traefik.enable: true
       traefik.http.routers.freebox-exporter.entrypoints: https
       traefik.http.routers.freebox-exporter.rule: Host(`freebox-exporter.${DOMAIN}`) && PathPrefix(`/metrics`)
-      traefik.http.services.freebox-exporter.loadbalancer.server.port: 10001
+      traefik.http.services.freebox-exporter.loadbalancer.server.port: 9102
 
 networks:
   proxy:
     external: true
 
 volumes:
-  freebox-token:
+  freebox_data:
+  freebox_config:

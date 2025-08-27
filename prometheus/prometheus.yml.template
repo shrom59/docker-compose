@@ -54,14 +54,6 @@ scrape_configs:
        - cadvisor.${DOMAIN}
    metrics_path: /metrics
    scheme: https
-   metric_relabel_configs:
-    - source_labels: [__name__]
-      regex: 'container_(memory_usage_bytes|memory_cache|memory_rss|cpu_usage_seconds_total|network_.*_bytes_total|fs_.*_bytes)'
-      action: keep
-    - regex: 'container_label_.*'
-      action: labeldrop
-    - regex: 'image'
-      action: labeldrop
 
  - job_name: restic-exporter
    scrape_interval: 300s
