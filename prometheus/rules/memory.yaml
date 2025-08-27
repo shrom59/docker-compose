@@ -2,7 +2,7 @@ groups:
 - name: memory_calculations
   interval: 30s
   rules:
-  - record: container_memory_working_set_bytes
+  - record: container_memory_set_bytes_no_cache
     expr: container_memory_usage_bytes - container_memory_cache
     labels:
       job: "cadvisor"
