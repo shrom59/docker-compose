@@ -1,0 +1,31 @@
+services:
+  arcane:
+    image: ghcr.io/ofkm/arcane:latest
+    container_name: arcane
+    restart: unless-stopped
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+      - /var/run/docker.sock:/var/run/docker.sock
+      - arcane-data:/app/data
+      - /home/docker/compose:/app/data/projects
+    networks:
+      - proxy
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - APP_URL=https://localhost:3552
+      - ENCRYPTION_KEY=${ENCRYPTION_KEY}
+      - JWT_SECRET=${JWT_SECRET}
+      - DATABASE_URL=file:data/arcane.db?_pragma=journal_mode(WAL)&_pragma=busy_timeout(2500)&_txlock=immediate
+    labels:
+      traefik.enable: true
+      traefik.http.routers.arcane.entrypoints: https
+      traefik.http.routers.arcane.rule: Host(`arcane.${DOMAIN}`)
+      traefik.http.services.arcane.loadbalancer.server.port: 3552
+
+networks:
+  proxy:
+    external: true
+
+volumes:
+  arcane-data:

@@ -1,6 +1,8 @@
 services:
   config-generator:
     image: alpine:latest
+    networks:
+      - proxy
     volumes:
       - ./.env:/app/.env:ro
       - ./prometheus.yml.template:/app/prometheus.yml.template:ro
