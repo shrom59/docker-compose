@@ -9,7 +9,7 @@ services:
       - freebox_config:/etc/freebox-exporter-rs
       - freebox_data:/data
     command: 
-      - '/root/freebox-exporter-rs'
+      - './freebox-exporter-rs'
       - '-c'
       - '/etc/freebox-exporter-rs/config.toml'
       - 'auto'
