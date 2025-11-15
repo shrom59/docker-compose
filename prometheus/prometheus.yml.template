@@ -78,3 +78,11 @@ scrape_configs:
        - freebox-exporter.${DOMAIN}
    metrics_path: /metrics
    scheme: https
+
+ - job_name: n8n
+   scrape_interval: 300s
+   static_configs:
+    - targets: 
+       - n8n.${DOMAIN}
+   metrics_path: /metrics
+   scheme: https 
