@@ -1,0 +1,37 @@
+services:
+  n8n:
+    image: docker.n8n.io/n8nio/n8n
+    container_name: n8n
+    restart: always
+    networks:
+      - proxy
+    environment:
+      - N8N_HOST=${SUBDOMAIN}.${DOMAIN}
+      - N8N_PORT=${N8N_PORT}
+      - N8N_PROTOCOL=https
+      - WEBHOOK_URL=https://${SUBDOMAIN}.${DOMAIN}/
+      - N8N_DIAGNOSTICS_ENABLED=false
+      - N8N_PERSONALIZATION_ENABLED=false
+      - N8N_VERSION_NOTIFICATIONS_ENABLED=false
+      - N8N_TEMPLATES_ENABLED=true
+      - N8N_ENFORE_SETTINGS_FILE_PERMISSIONS=true
+      - N8N_ENV=production
+      - N8N_RUNNERS_ENABLED=true
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+      - n8n_data:/home/node/.n8n
+      - local-files:/files
+    labels:
+      traefik.enable: true
+      traefik.http.routers.n8n.entrypoints: https
+      traefik.http.routers.n8n.rule: Host("n8n.${DOMAIN}")
+      traefik.http.routers.n8n.service: n8n
+      traefik.http.services.n8n.loadbalancer.server.port: ${N8N_PORT}
+
+networks:
+  proxy:
+    external: true
+
+volumes:
+  n8n_data:
+  local-files:
