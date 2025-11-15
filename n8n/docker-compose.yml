@@ -17,6 +17,7 @@ services:
       - N8N_ENFORE_SETTINGS_FILE_PERMISSIONS=true
       - N8N_ENV=production
       - N8N_RUNNERS_ENABLED=true
+      - N8N_METRICS=true
     volumes:
       - /etc/localtime:/etc/localtime:ro
       - n8n_data:/home/node/.n8n
