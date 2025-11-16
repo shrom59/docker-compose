@@ -22,6 +22,7 @@ services:
       - /etc/localtime:/etc/localtime:ro
       - n8n_data:/home/node/.n8n
       - local-files:/files
+      - ~/.ssh/n8n:/home/node/.ssh:ro
     labels:
       traefik.enable: true
       traefik.http.routers.n8n.entrypoints: https
