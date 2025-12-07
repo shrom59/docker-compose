@@ -18,6 +18,13 @@ services:
       - N8N_ENV=production
       - N8N_RUNNERS_ENABLED=true
       - N8N_METRICS=true
+      - N8N_PROXY_HOPS=1
+      - EXECUTIONS_DATA_PRUNE=true
+      - EXECUTIONS_DATA_MAX_AGE=192 # 8 days
+      - EXECUTIONS_DATA_SAVE_ON_ERROR=all
+      - EXECUTIONS_DATA_SAVE_ON_SUCCESS=all
+      - EXECUTIONS_DATA_SAVE_MANUAL_EXECUTIONS=true
+      - EXECUTIONS_DATA_MAX_COUNT=100
     volumes:
       - /etc/localtime:/etc/localtime:ro
       - n8n_data:/home/node/.n8n
