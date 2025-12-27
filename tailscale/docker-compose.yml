@@ -1,0 +1,25 @@
+services:
+  tailscale:
+    image: tailscale/tailscale:latest
+    container_name: tailscale
+    restart: unless-stopped
+    hostname: tailscale-host.${DOMAIN}
+    networks:
+      - proxy
+    cap_add:
+      - NET_ADMIN
+      - NET_RAW
+    volumes:
+      - tailscale-data:/var/lib/tailscale
+      - /dev/net/tun:/dev/net/tun
+    environment:
+      - TS_STATE_DIR=/var/lib/tailscale
+      - TS_EXTRA_ARGS=--advertise-routes=192.168.1.0/24 --accept-dns=false
+      - TS_ENABLE_METRICS=true
+
+networks:
+  proxy:
+    external: true
+
+volumes:
+  tailscale-data:
