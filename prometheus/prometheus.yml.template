@@ -37,15 +37,6 @@ scrape_configs:
    metrics_path: /metrics
    scheme: https 
 
- - job_name: watchtower
-   scrape_interval: 300s
-   static_configs:
-    - targets:
-       - watchtower.${DOMAIN}
-   metrics_path: /v1/metrics
-   scheme: https
-   bearer_token: /etc/prometheus/secrets/api_token
-
  - job_name: cadvisor
    scrape_interval: 30s
    scrape_timeout: 10s
@@ -85,4 +76,11 @@ scrape_configs:
     - targets: 
        - n8n.${DOMAIN}
    metrics_path: /metrics
-   scheme: https 
+   scheme: https
+
+ - job_name: tailscale
+   scrape_interval: 30s
+   static_configs:
+    - targets: 
+       - tailscale:9002
+   metrics_path: /metrics
