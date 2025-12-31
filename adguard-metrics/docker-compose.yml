@@ -9,12 +9,6 @@ services:
       - ADGUARD_SERVERS=${ADGUARD_SERVERS}
       - ADGUARD_USERNAMES=${ADGUARD_USERNAMES}
       - ADGUARD_PASSWORDS=${ADGUARD_PASSWORDS}
-    labels:
-      traefik.enable: true
-      traefik.http.routers.adguard-metrics.entrypoints: https
-      traefik.http.routers.adguard-metrics.rule: Host("adguard.${DOMAIN}") && PathPrefix(`/metrics`)
-      traefik.http.routers.adguard-metrics.service: adguard-metrics
-      traefik.http.services.adguard-metrics.loadbalancer.server.port: 9618
 networks:
   proxy:
     external: true
