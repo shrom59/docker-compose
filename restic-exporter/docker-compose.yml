@@ -14,12 +14,7 @@ services:
       - backrest_data:/data:ro
       - /usr/bin/rclone:/usr/bin/rclone:ro
       - rclone_config:/root/.config/rclone:ro
-    labels:
-      traefik.enable: true
-      traefik.http.routers.restic-exporter.entrypoints: https
-      traefik.http.routers.restic-exporter.rule: Host("restic-exporter.${DOMAIN}") && PathPrefix(`/metrics`)
-      traefik.http.routers.restic-exporter.service: restic-exporter
-      traefik.http.services.restic-exporter.loadbalancer.server.port: 8001
+
 networks:
   proxy:
     external: true

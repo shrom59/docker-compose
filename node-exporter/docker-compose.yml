@@ -16,12 +16,6 @@ services:
       - --path.rootfs=/rootfs
       - --path.sysfs=/host/sys
       - --collector.filesystem.mount-points-exclude=^/(sys|proc|dev|host|etc)($$|/)
-    labels:
-      traefik.enable: true
-      traefik.http.routers.node-exporter.entrypoints: https
-      traefik.http.routers.node-exporter.rule: Host("node-exporter.${DOMAIN}") && PathPrefix(`/metrics`)
-      traefik.http.routers.node-exporter.service: node-exporter
-      traefik.http.services.node-exporter.loadbalancer.server.port: 9100
 networks:
   proxy:
     external: true

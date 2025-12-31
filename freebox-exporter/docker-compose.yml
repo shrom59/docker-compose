@@ -13,11 +13,6 @@ services:
       - '-c'
       - '/etc/freebox-exporter-rs/config.toml'
       - 'auto'
-    labels:
-      traefik.enable: true
-      traefik.http.routers.freebox-exporter.entrypoints: https
-      traefik.http.routers.freebox-exporter.rule: Host(`freebox-exporter.${DOMAIN}`) && PathPrefix(`/metrics`)
-      traefik.http.services.freebox-exporter.loadbalancer.server.port: 9102
 
 networks:
   proxy:

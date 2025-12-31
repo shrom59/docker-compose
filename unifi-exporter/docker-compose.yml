@@ -13,11 +13,7 @@ services:
       - UP_INFLUXDB_DISABLE=true
       - UP_UNIFI_DEFAULT_VERIFY_SSL=false
       - UP_PROMETHEUS_HTTP_LISTEN=:9130
-    labels:
-      traefik.enable: true
-      traefik.http.routers.unifi-exporter.entrypoints: https
-      traefik.http.routers.unifi-exporter.rule: Host(`unifi-exporter.${DOMAIN}`) && PathPrefix(`/metrics`)
-      traefik.http.services.unifi-exporter.loadbalancer.server.port: 9130
+
 networks:
   proxy:
     external: true
