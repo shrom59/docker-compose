@@ -20,7 +20,7 @@ services:
     labels:
       traefik.enable: true
       traefik.http.routers.backrest.entrypoints: https
-      traefik.http.routers.backrest.rule: Host("backrest.${DOMAIN}")
+      traefik.http.routers.backrest.rule: Host(`backrest.${DOMAIN}`)
       traefik.http.routers.backrest.service: backrest
       traefik.http.services.backrest.loadbalancer.server.port: 9898
 networks:

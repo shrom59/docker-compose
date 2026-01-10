@@ -1,0 +1,24 @@
+version: 3.3
+
+# Environment settings (optional, environment variables take precedence)
+environment:
+  selfhst_icon_url: https://cdn.jsdelivr.net/gh/selfhst/icons/
+  refresh_interval_seconds: 30
+  log_level: info
+  language: fr
+  grouping:
+    enabled: true
+    columns: 3  # Number of columns in grouped view (1-6), default: 3
+    tag_frequency_threshold: 0.9  # Threshold for excluding tags present in more than 90% of services
+    min_services_per_group: 1  # Minimum number of services required for a tag to form a group (default: 2)
+# Service configuration
+services:
+  # Services to exclude from the dashboard
+  exclude:
+    routers:
+      - api* # Hide all routers starting with api
+
+  overrides:
+    - service: "nas"
+      display_name: "NAS"
+      icon: "synology.svg"   

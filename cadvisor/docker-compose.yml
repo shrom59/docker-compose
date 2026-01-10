@@ -18,7 +18,7 @@ services:
     labels:
       traefik.enable: true
       traefik.http.routers.cadvisor.entrypoints: https
-      traefik.http.routers.cadvisor.rule: Host("cadvisor.${DOMAIN}")
+      traefik.http.routers.cadvisor.rule: Host(`cadvisor.${DOMAIN}`)
       traefik.http.routers.cadvisor.service: cadvisor
       traefik.http.services.cadvisor.loadbalancer.server.port: 8080
 
