@@ -44,7 +44,7 @@ services:
     labels:
       traefik.enable: true
       traefik.http.routers.unifi.entrypoints: https
-      traefik.http.routers.unifi.rule: Host("unifi.${DOMAIN}")
+      traefik.http.routers.unifi.rule: Host(`unifi.${DOMAIN}`)
       traefik.http.routers.unifi.service: unifi
       traefik.http.services.unifi.loadbalancer.server.scheme: https
       traefik.http.services.unifi.loadbalancer.server.port: 8443

@@ -1,0 +1,23 @@
+services:
+  trala:
+    image: ghcr.io/dannybouwers/trala:latest  # Primary source
+    container_name: trala
+    restart: unless-stopped
+    networks:
+      - proxy
+    environment:
+      - TRAEFIK_API_HOST=https://traefik.${DOMAIN}
+      - LOG_LEVEL=debug
+    volumes:
+      - /home/docker/compose/trala/configuration.yml:/config/configuration.yml
+    labels:
+      traefik.enable: true
+      traefik.http.routers.home.entrypoints: https
+      traefik.http.routers.home.rule: Host(`home.${DOMAIN}`)
+      traefik.http.services.home.loadbalancer.server.port: 8080
+
+networks:
+  proxy:
+    external: true
+volumes:
+  config:

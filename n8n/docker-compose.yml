@@ -33,7 +33,7 @@ services:
     labels:
       traefik.enable: true
       traefik.http.routers.n8n.entrypoints: https
-      traefik.http.routers.n8n.rule: Host("n8n.${DOMAIN}")
+      traefik.http.routers.n8n.rule: Host(`n8n.${DOMAIN}`)
       traefik.http.routers.n8n.service: n8n
       traefik.http.services.n8n.loadbalancer.server.port: ${N8N_PORT}
 
