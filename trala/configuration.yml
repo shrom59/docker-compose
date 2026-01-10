@@ -5,20 +5,53 @@ environment:
   selfhst_icon_url: https://cdn.jsdelivr.net/gh/selfhst/icons/
   refresh_interval_seconds: 30
   log_level: info
-  language: fr
+  language: en
   grouping:
     enabled: true
-    columns: 3  # Number of columns in grouped view (1-6), default: 3
-    tag_frequency_threshold: 0.9  # Threshold for excluding tags present in more than 90% of services
-    min_services_per_group: 1  # Minimum number of services required for a tag to form a group (default: 2)
+    columns: 3
+    tag_frequency_threshold: 0.9
+    min_services_per_group: 1
 # Service configuration
 services:
-  # Services to exclude from the dashboard
   exclude:
     routers:
-      - api* # Hide all routers starting with api
+      - api*
+      - webdav*
 
   overrides:
+    #Storage & Backup
     - service: "nas"
+      group: "Storage & Backup"
       display_name: "NAS"
-      icon: "synology.svg"   
+      icon: "synology.svg"
+    - service: "backrest"
+      group: "Storage & Backup"
+      display_name: "Backrest"
+    #Moniroring
+    - service: "grafana"
+      group: "Monitoring"
+      display_name: "Grafana"
+    - service: "prometheus"
+      group: "Monitoring"
+      display_name: "Prometheus"
+    - service: "cadvisor"
+      group: "Monitoring"
+      display_name: "Cadvisor"
+    #Security
+    - service: "vaultwarden"
+      group: "Security"
+      display_name: "Vaultwarden"
+    - service: "adguard"
+      group: "Security"
+      display_name: "Adguard"
+    #Management & Automation
+    - service: "dockhand"
+      group: "Management & Automation"
+      display_name: "Dockhand"
+    - service: "n8n"
+      group: "Management & Automation"
+      display_name: "n8n"
+    #Network
+    - service: "unifi"
+      group: "Network"
+      display_name: "Unifi"
