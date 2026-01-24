@@ -16,6 +16,12 @@ services:
       - SHOW_PASSWORD_HINT=false
       - ADMIN_TOKEN=${ADMIN_TOKEN}
       - WEBSOCKET_ENABLED=true
+    healthcheck:
+      test: ["CMD-SHELL", "curl -f http://localhost/alive || exit 1"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 30s
     labels:
       traefik.enable: true
       traefik.http.routers.vaultwarden.entrypoints: https
