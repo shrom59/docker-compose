@@ -17,6 +17,12 @@ services:
       - cache:/cache
       - rclone_config:/root/.config/rclone:ro
       - /home/docker:/data/docker
+    healthcheck:
+      test: ["CMD-SHELL", "wget --no-verbose --tries=1 --spider http://localhost:9898 || exit 1"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 30s
     labels:
       traefik.enable: true
       traefik.http.routers.backrest.entrypoints: https
