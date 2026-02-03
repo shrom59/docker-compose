@@ -1,0 +1,13 @@
+services:
+  snmp-exporter:
+    image: prom/snmp-exporter:latest
+    container_name: snmp-exporter
+    restart: unless-stopped
+    volumes:
+      - ./snmp.yml:/etc/snmp_exporter/snmp.yml:ro
+    networks:
+      - proxy
+
+networks:
+  proxy:
+    external: true
