@@ -10,6 +10,7 @@ services:
       - /proc:/host/proc:ro
       - /sys:/host/sys:ro
       - /:/rootfs:ro
+      - /var/run/dbus/system_bus_socket:/var/run/dbus/system_bus_socket:ro
       - prometheus_data:/prometheus_data
     command:
       - --path.procfs=/host/proc
@@ -17,6 +18,7 @@ services:
       - --path.sysfs=/host/sys
       - --collector.filesystem.mount-points-exclude=^/(sys|proc|dev|host|etc)($$|/)
       - --collector.cpu.info 
+      - --collector.systemd
 networks:
   proxy:
     external: true
