@@ -5,6 +5,8 @@ services:
     restart: unless-stopped
     user: "65534:65534"
     command:
+      - '--config.file=/etc/prometheus/prometheus.yml'
+      - '--storage.tsdb.path=/prometheus'
       - '--web.enable-lifecycle'
     networks:
       - proxy
