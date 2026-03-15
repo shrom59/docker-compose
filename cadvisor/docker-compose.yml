@@ -14,9 +14,9 @@ services:
       - /sys:/sys:ro
       - /var/lib/docker/:/var/lib/docker:ro
     command:
-      - --housekeeping_interval=60s           
-      - --storage_duration=1h                 
-      - --max_housekeeping_interval=5m        
+      - --housekeeping_interval=60s
+      - --storage_duration=1h
+      - --max_housekeeping_interval=5m
     labels:
       traefik.enable: true
       traefik.http.routers.cadvisor.entrypoints: https
