@@ -19,10 +19,10 @@ services:
       - --path.rootfs=/rootfs
       - --path.sysfs=/host/sys
       - --collector.filesystem.mount-points-exclude=^/(sys|proc|dev|host|etc)($$|/)
-      - --collector.cpu.info 
+      - --collector.cpu.info
       - --collector.systemd
 networks:
   proxy:
     external: true
 volumes:
-  prometheus_data:
+  prometheus_data:    
