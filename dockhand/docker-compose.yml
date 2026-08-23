@@ -14,6 +14,8 @@ services:
       timeout: 10s
       retries: 3
       start_period: 30s
+    environment:
+      - FEAT_BACKUPS_ENABLED=true
     networks:
       - proxy
     labels:

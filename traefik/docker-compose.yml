@@ -46,6 +46,29 @@ services:
       traefik.http.routers.api.rule: Host(`traefik.${DOMAIN}`)
       traefik.http.routers.api.service: api@internal
 
+  error-pages:
+    image: ghcr.io/tarampampam/error-pages:3.8.1
+    container_name: traefik-error-pages
+    restart: unless-stopped
+    volumes:
+      - ./my-error-page.html:/opt/my-error-page.html:ro
+    command:
+      - serve
+      - --add-template=/opt/my-error-page.html
+      - --template-name=my-error-page
+    environment:
+      TEMPLATE_NAME: my-error-page
+      SHOW_DETAILS: "true"
+    networks:
+      - proxy
+    labels:
+      traefik.enable: "true"
+      traefik.http.routers.error-pages.rule: HostRegexp(`.+`)
+      traefik.http.routers.error-pages.priority: "1"        # priorité très basse
+      traefik.http.routers.error-pages.entrypoints: https
+      traefik.http.services.error-pages-svc.loadbalancer.server.port: "8080"
+  
+
 networks:
   proxy:
     external: true
